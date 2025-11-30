@@ -1,3 +1,17 @@
 
 general:
-  kafka-topic : "transactions"
+  kafka-topic: "transactions"
+
+spring:
+  kafka:
+    consumer:
+      group-id: midas
+      auto-offset-reset: earliest
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
