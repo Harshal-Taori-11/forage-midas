@@ -14,5 +14,8 @@ In debug mode :
 Output : 
 <img width="1875" height="934" alt="task2 completed" src="https://github.com/user-attachments/assets/8c76247c-9509-45c4-9d48-bb6acdc90eb0" />
 
+# Task 3 : 
+In Debug mode : last transaction
+<img width="1496" height="391" alt="task3 completion" src="https://github.com/user-attachments/assets/c0147b93-3f1a-416e-b989-c3337b82aced" />
 
 
