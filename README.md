@@ -18,4 +18,7 @@ Output :
 In Debug mode : last transaction
 <img width="1496" height="391" alt="task3 completion" src="https://github.com/user-attachments/assets/c0147b93-3f1a-416e-b989-c3337b82aced" />
 
+# Task 4 :
+In Debug mode : last wilbur transaction 
+<img width="1567" height="409" alt="task 4 completion" src="https://github.com/user-attachments/assets/2013dd20-466f-42ab-886e-17cc53c49875" />
 
