@@ -2,6 +2,7 @@ package com.jpmc.midascore.component;
 
 import com.jpmc.midascore.entity.TransactionRecord;
 import com.jpmc.midascore.entity.UserRecord;
+import com.jpmc.midascore.foundation.Incentive;
 import com.jpmc.midascore.foundation.Transaction;
 import com.jpmc.midascore.repository.TransactionRepository;
 import com.jpmc.midascore.repository.UserRepository;
@@ -11,10 +12,13 @@ import org.springframework.stereotype.Component;
 public class DatabaseConduit {
     private final UserRepository userRepository;
     private final TransactionRepository transactionRepository;
+    private final IncentiveFetchService incentiveFetchService;
 
-    public DatabaseConduit(UserRepository userRepository, TransactionRepository transactionRepository) {
+    public DatabaseConduit(UserRepository userRepository, TransactionRepository transactionRepository, IncentiveFetchService incentiveFetchService) {
         this.userRepository = userRepository;
         this.transactionRepository = transactionRepository;
+        this.incentiveFetchService = incentiveFetchService;
+
     }
 
     public void save(TransactionRecord transactionRecord){transactionRepository.save(transactionRecord);}
@@ -48,8 +52,9 @@ public class DatabaseConduit {
         }
 
         if(hasAmount(amount, senderId)){
+            Incentive incentive = incentiveFetchService.fetchIncentive(transaction);
             sender.setBalance(sender.getBalance()-amount);
-            reciever.setBalance(reciever.getBalance()+amount);
+            reciever.setBalance(reciever.getBalance()+amount+incentive.getAmount());
 
             userRepository.save(sender);
             userRepository.save(reciever);
@@ -59,6 +64,6 @@ public class DatabaseConduit {
             transactionRecord.setAmount(amount);
 
             transactionRepository.save(transactionRecord);
-        };
+        }
     }
 }
