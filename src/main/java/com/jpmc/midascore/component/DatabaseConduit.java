@@ -6,6 +6,7 @@ import com.jpmc.midascore.foundation.Incentive;
 import com.jpmc.midascore.foundation.Transaction;
 import com.jpmc.midascore.repository.TransactionRepository;
 import com.jpmc.midascore.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,11 +28,11 @@ public class DatabaseConduit {
     }
 
     private UserRecord isUser(long userId){
-        return userRepository.findById(userId);
+        return userRepository.findById(userId).orElse(null);
     }
 
     private boolean hasAmount(float amount, long senderId){
-        UserRecord userRecord = userRepository.findById(senderId);
+        UserRecord userRecord = userRepository.findById(senderId).orElse(null);
         return amount <= userRecord.getBalance();
     }
 
@@ -65,5 +66,10 @@ public class DatabaseConduit {
 
             transactionRepository.save(transactionRecord);
         }
+    }
+
+    public float getUserBalance(long userId){
+        return userRepository.findById(userId)
+            .map(UserRecord :: getBalance).orElse(0f);
     }
 }
